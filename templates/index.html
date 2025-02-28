@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDP Chatbot</title>
+    <style>
+        /* General Styles */
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/computer-desk-with-purple-light_889227-4046.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .chat-container {
+            background-color: #b4f9f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            transition: opacity 0.5s ease;
+            background-size: cover;
+        
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+
+        button {
+            background-color: #964caf;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #45a083;
+            transform: translateY(-2px);
+        }
+
+        #response {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #000000;
+            background-color: #ffffff;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            display: inline;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            width: 48%;
+        }
+
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .chat-container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            input[type="text"] {
+                padding: 12px;
+            }
+
+            button {
+                padding: 12px;
+            }
+
+            .action-buttons button {
+                width: 45%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container" style="background-image: url('https://www.bing.com/th/id/OGC.dfb0012a2e17787904587c651772c8a2?pid=1.7&rurl=https%3a%2f%2fwww.crossovertraining.in%2fwp-content%2fuploads%2f2019%2f11%2fartificial-intelligence.gif&ehk=x%2fxZ0eQCFlB2vQy6UTJ8j97Lbk3%2bjhG%2bo1xlZkizyvY%3d');position: absolute;">
+        
+        <h2 style="color: rgb(255, 255, 255);background-color: #000000;display:inline-block;border-radius: 7px;color: #ffffff;">Ask a Question!</h2>
+        <input type="text" id="question" placeholder="Type your question here...">
+        <button onclick="askChatbot()">Ask</button>
+        <p id="response"></p>
+        
+        <div id="loading" style="display:none;color: white;">Loading...</div> <!-- Loading message -->
+
+        <div class="action-buttons">
+            <button onclick="goBack()">Go Back</button>
+            <button onclick="clearInput()">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to ask chatbot
+        function askChatbot() {
+            let question = document.getElementById("question").value.trim();
+            const askButton = document.querySelector("button");
+            const loading = document.getElementById("loading");
+            const response = document.getElementById("response");
+
+            if (!question) {
+                response.innerText = "Please type a question."; // Prompt if empty
+                return;
+            }
+            
+            askButton.disabled = true; // Disable the button while waiting for response
+            loading.style.display = "block"; // Show loading message
+
+            fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").innerText = data.response; // Display the chatbot response
+                loading.style.display = "none"; // Hide loading message
+                askButton.disabled = false; // Re-enable the button
+            })
+            .catch(error => {
+                document.getElementById("response").innerText = "Sorry,-Please try again with (past) this in your search-bar http://127.0.0.1:5000/";
+                loading.style.display = "none"; // Hide loading message
+                askButton.disabled = false; // Re-enable the button
+            });
+        }
+
+        // Function to go back to the previous page
+        function goBack() {
+            document.querySelector('.chat-container').classList.add('fade-out');
+            document.querySelector('#response').classList.add('fade-out');
+
+            setTimeout(function() {
+                window.history.back(); // Go back after fade-out animation
+            }, 500); // Wait for the fade-out animation to finish
+        }
+
+        // Function to clear the input and response with fade-out animation
+        function clearInput() {
+            document.querySelector('#question').classList.add('fade-out');
+            document.querySelector('#response').classList.add('fade-out');
+
+            setTimeout(function() {
+                document.getElementById("question").value = '';
+                document.getElementById("response").innerText = '';
+                document.querySelector('#question').classList.remove('fade-out');
+                document.querySelector('#response').classList.remove('fade-out');
+            }, 500);
+        }
+    </script> <center>   <h3 style="color: white;background-color: #333333b0;border-radius: 7px;display: block;">Assignment 2: Support Agent Chatbot for CDP “How-to” Questions</h3>
+    <h6 style="color: white;background-color: #333333b0;border-radius: 7px;display: inline;"><a href="https://abduljamil.netlify.app/"></a>~ www.ABDUL JAMIL.net</h6></center> 
+</body>
+</html>
