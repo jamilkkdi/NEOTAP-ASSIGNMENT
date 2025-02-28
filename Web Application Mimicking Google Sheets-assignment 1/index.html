@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Clone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-color: rgb(0, 0, 0);">
+    <header>
+        <h1>Google Sheets Clone</h1>
+    </header>
+
+    <div class="controls">
+
+        <input type="text" id="formulaInput" placeholder="formula e.g:SUM(A1:B2)" />
+        <button onclick="calculateFormula()">Calculate</button>
+        <br>
+        <button onclick="addRow()">Add Row</button> <br>
+        <button onclick="addColumn()">Add Column</button> <br>
+
+
+        <button onclick="trimCells()">Trim Spaces</button> <br>
+        <button onclick="convertToUpper()">Uppercase</button> <br>
+        <button onclick="convertToLower()">Lowercase</button> <br> <br> 
+
+        <button onclick="saveSpreadsheet()">Save</button> <br>
+        <button onclick="loadSpreadsheet()">Load</button> <br>
+    </div>
+
+    <table id="spreadsheet">
+        <tbody>
+            <tr>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+            <tr>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>

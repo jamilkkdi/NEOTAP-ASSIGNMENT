@@ -1,0 +1,120 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #2575fc;
+    font-size: 36px;
+}
+
+/* Controls styling */
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+button {
+    background-color: #2575fc;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #6a11cb;
+    transform: scale(1.05);
+}
+
+/* Input field styling */
+#formulaInput {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+    margin: 0 10px;
+}
+
+#formulaInput:focus {
+    border-color: #2575fc;
+    outline: none;
+}
+
+/* Table styling */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+td {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+    background-color: white;
+    font-size: 16px;
+    font-weight: normal;
+    transition: background-color 0.3s ease;
+}
+
+/* Table hover effect */
+td:hover {
+    background-color: #f0f8ff;
+}
+
+/* Striped rows */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #formulaInput {
+        width: 100%;
+        max-width: 300px;
+        margin: 10px 0;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        width: auto;
+    }
+}
