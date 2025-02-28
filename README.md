@@ -2,7 +2,8 @@
 SOFTWARE ENGINEER INTERN ASSIGNMENT
 
 
-# NEOTAP-ASSIGNMENT
+# Building a Support Agent Chatbot for CDP
+"How-to" Questions
 
 ## Description
 This is a **Support Agent Chatbot** for Customer Data Platforms (CDPs). The chatbot is designed to answer "how-to" questions related to the following CDPs:
